@@ -24,7 +24,7 @@
       <header>
         <div class="user-info">
           <img src="@/assets/avatar.avif" alt="User Avatar" class="avatar">
-          <span>User1</span>
+          <span>User1</span> 
         </div>
         <button @click="logout" class="logout-btn">Logout</button>
       </header>

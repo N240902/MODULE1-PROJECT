@@ -11,6 +11,7 @@
     <div v-if="employeeData && employeeData.length > 0">
       <div v-for="employee in filteredEmployeeData" :key="employee.employeeId" class="employee-card mb-3">
         <ul>
+        
           <li><strong>Employee ID:</strong> {{ employee.employeeId }}</li>
           <li><strong>Name:</strong> {{ employee.name }}</li>
           <li><strong>Position:</strong> {{ employee.position }}</li>
@@ -20,8 +21,10 @@
           <li><strong>Contact:</strong> {{ employee.contact }}</li>
         </ul>
 
-        <!-- Edit Button -->
-        <button @click="editEmployee(employee)" class="btn btn-warning">Edit</button>
+        <!-- Edit and Delete Button -->
+        <button @click="editEmployee(employee)" class="btn btn-warning">Edit</button> 
+ 
+        <button @click="confirmDelete(employee)" class="btn btn-danger">Delete</button>
       </div>
     </div>
 
@@ -62,8 +65,27 @@
       </div>
     </div>
 
+    <!-- Delete Confirmation Modal -->
+    <div v-if="confirmingDelete" class="modal fade show" tabindex="-1" style="display: block;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm Deletion</h5>
+            <button type="button" class="close" @click="closeDeleteModal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete {{ employeeToDelete.name }}?</p>
+            <button @click="deleteEmployee" class="btn btn-danger">Yes, Delete</button>
+            <button @click="closeDeleteModal" class="btn btn-secondary">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- Go Back Button -->
     <button @click="goBack" class="btn btn-primary mt-3">Go Back to Dashboard</button>
+    
   </div>
 </template>
 
@@ -76,6 +98,8 @@ export default {
       employeeData: null,
       searchQuery: '',
       editingEmployee: null,
+      confirmingDelete: false,
+      employeeToDelete: null, // Store the employee to be deleted
     }
   },
   computed: {
@@ -142,7 +166,7 @@ export default {
             "name": "Sipho Zulu",
             "position": "UI/UX Designer",
             "department": "Design",
-            "salary": 65000,
+            "salary": 65000, 
             "employmentHistory": "Joined in 2016",
             "contact": "sipho.zulu@moderntech.com"
         },
@@ -198,6 +222,23 @@ export default {
     closeModal() {
       this.editingEmployee = null; // Close the modal
     },
+
+    closeDeleteModal() {
+      this.confirmingDelete = false;
+      this.employeeToDelete = null;
+    },
+    confirmDelete(employee) {
+      this.confirmingDelete = true;
+      this.employeeToDelete = employee; // Store the employee to delete
+    },
+    deleteEmployee() {
+      const index = this.employeeData.findIndex(emp => emp.employeeId === this.employeeToDelete.employeeId);
+      if (index !== -1) {
+        this.employeeData.splice(index, 1); // Remove the employee
+      }
+      this.closeDeleteModal();
+    },
+
     goBack() {
       this.$router.push('/home');
     },
@@ -227,6 +268,11 @@ export default {
 
 .search-container {
   margin-bottom: 20px;
+}
+
+/* Adds space between the buttons */
+.btn + .btn {
+  margin-left: 10px; /* Adds space between the buttons */
 }
 </style>
 

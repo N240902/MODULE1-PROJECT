@@ -16,7 +16,7 @@ export default {
     return {
       isLoggedIn: false,
     }
-  },
+  }, 
   methods: {
     handleLogin(userData) {
       this.isLoggedIn = true

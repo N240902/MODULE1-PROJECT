@@ -1,104 +1,104 @@
- <template>
-    <div class="login-container flex h-screen">
-      <!-- Left Side - Logo and Background -->
-      <div class="login-background">
-        <div class="absolute">
-          <img 
-            src="@/assets/image.png"
-            alt="Company Logo" 
-            class="mr-4 w-12 h-12"
-          />
-        </div>
+<template>
+  <div class="login-container flex h-screen">
+    <!-- Left Side - Logo and Background -->
+    <div class="login-background">
+      <div class="absolute w-full h-full flex justify-center items-center">
+        <img 
+          src="@/assets/image.png"
+          alt="Company Logo" 
+          class="company-logo"
+        />
       </div>
-      
-      <!-- Right Side - Login Form -->
-      <div class="login-form">
-        <div class="w-full max-w-md">
-          <div v-if="!isForgotPassword">
-            <h3 class="text-2xl font-bold mb-8 text-center">Login</h3>
-            <form @submit.prevent="login" class="space-y-6">
-              <div>
-                <label class="block mb-2 text-gray-700">Username</label>
-                <input 
-                  v-model="username" 
-                  type="text" 
-                  required
-                  class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your username"
-                />
-              </div>
-              
-              <div>
-                <label class="block mb-2 text-gray-700">Password</label>
-                <input 
-                  v-model="password" 
-                  type="password" 
-                  required
-                  class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your password"
-                />
-              </div>
-              
-              <div v-if="errorMessage" class="text-red-500 text-center">
-                {{ errorMessage }}
-              </div>
-              
+    </div>
+    
+    <!-- Right Side - Login Form -->
+    <div class="login-form">
+      <div class="w-full max-w-md">
+        <div v-if="!isForgotPassword">
+          <h3 class="text-2xl font-bold mb-8 text-center">Login</h3>
+          <form @submit.prevent="login" class="space-y-6">
+            <div>
+              <label class="block mb-2 text-gray-700">Username</label>
+              <input 
+                v-model="username" 
+                type="text" 
+                required
+                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your username"
+              />
+            </div>
+            
+            <div>
+              <label class="block mb-2 text-gray-700">Password</label>
+              <input 
+                v-model="password" 
+                type="password" 
+                required
+                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your password"
+              />
+            </div>
+            
+            <div v-if="errorMessage" class="text-red-500 text-center">
+              {{ errorMessage }}
+            </div>
+            
+            <button 
+              type="submit" 
+              class="btn btn-primary"
+            >
+              Sign In
+            </button>
+            
+            <div class="text-center mt-4">
               <button 
-                type="submit" 
-                class="btn btn-primary"
+                type="button" 
+                class="btn btn-secondary" 
+                @click="toggleForgotPassword"
               >
-                Sign In
+                Forgot Password?
               </button>
-              
-              <div class="text-center mt-4">
-                <button 
-                  type="button" 
-                  class="btn btn-secondary" 
-                  @click="toggleForgotPassword"
-                >
-                  Forgot Password?
-                </button>
-              </div>
-            </form>
-          </div>
-          
-          <div v-else>
-            <h3 class="text-2xl font-bold mb-8 text-center">Reset Password</h3>
-            <form @submit.prevent="resetPassword" class="space-y-6">
-              <div>
-                <label class="block mb-2 text-gray-700">Email Address</label>
-                <input 
-                  v-model="resetEmail" 
-                  type="email" 
-                  required
-                  class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your email"
-                />
-              </div>
-              
+            </div>
+          </form>
+        </div>
+        
+        <div v-else>
+          <h3 class="text-2xl font-bold mb-8 text-center">Reset Password</h3>
+          <form @submit.prevent="resetPassword" class="space-y-6">
+            <div>
+              <label class="block mb-2 text-gray-700">Email Address</label>
+              <input 
+                v-model="resetEmail" 
+                type="email" 
+                required
+                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your email"
+              />
+            </div>
+            
+            <button 
+              type="submit" 
+              class="btn btn-primary"
+            >
+              Send Reset Link
+            </button>
+            
+            <div class="text-center mt-4">
               <button 
-                type="submit" 
+                type="button" 
                 class="btn btn-primary"
+                @click="toggleForgotPassword"
               >
-                Send Reset Link
+                Back to Login
               </button>
-              
-              <div class="text-center mt-4">
-                <button 
-                  type="button" 
-                  class="btn btn-primary"
-                  @click="toggleForgotPassword"
-                >
-                  Back to Login
-                </button>
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 </template>
-  
+
 <script>
   export default {
     data() {
@@ -112,7 +112,7 @@
     },
     methods: {
       login() {
-        // Mock authentication
+        // Correct password authentication
         if (this.username === 'user1' && this.password === 'password123') {
           this.$emit('login', { username: this.username })
         } else {
@@ -131,7 +131,7 @@
     }
   }
 </script>
-  
+
 <style scoped>
   .login-container {
     display: flex;
@@ -140,28 +140,26 @@
   
   .login-background {
     position: relative;
-    background-color: white;
-    color: white;
     flex: 1;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background-color: grey;
+    color: white;
   }
   
   .login-background .absolute {
     position: absolute;
-    top: 8px;
-    left: 8px;
+    top: 0;
+    left: 0;
     display: flex;
+    justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
   }
   
   .company-logo {
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
+    width: auto;
+    height: 80%;  /* Adjust the height as necessary */
+    object-fit: contain;  /* Maintains the aspect ratio */
   }
   
   .login-form {
@@ -196,7 +194,6 @@
     color: white;
     cursor: pointer;
   }
-  
   
   button[type="submit"]:hover {
     background-color: #0056b3;
