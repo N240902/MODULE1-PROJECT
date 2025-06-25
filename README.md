@@ -1,5 +1,8 @@
 # module1-project
 # ModernTech Solutions
+APP USERNAME & PASSWORDS to login : 
+username: user1
+password: passwprd123
 
 ModernTech Solutions is a modern HR management dashboard built with **Vue.js**. It provides streamlined features for handling employee data, payroll, performance metrics, and time off management. The user-friendly interface and responsive design make it easy to manage HR tasks efficiently. 
 
